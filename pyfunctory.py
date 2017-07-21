@@ -2,6 +2,7 @@
 
 import functools
 import operator
+import re
 
 
 """
@@ -23,6 +24,11 @@ Many are provided by the operator module:
     lt  : less than (<)
     ne  : not equal (!=)
 
+    Membership
+    contains  :  in (x in y)
+    is        :  is (x is y)
+    is_not    :  (x is not y)
+
 
 """
 def exact_match(x, y):
@@ -39,12 +45,30 @@ def exact_match(x, y):
     return all(x_elem == y_elem for x_elem, y_elem in zip(sorted(x), sorted(y)))
 
 
+def does_not_contain(y, x):
+    """ Return True if x is NOT found in y. """
+    return not operator.contains(y, x)
+
 
 """
 NUGGETS
 
-"""
+Regex patterns for filtering purposes
 
+"""
+initial_lowercase = re.compile(r'^[a-z]')
+
+initial_capital = re.compile(r'^[A-Z]')
+
+all_lower = re.compile(r'^[a-z]+$')
+
+all_upper = re.compile(r'^[A-Z]+$')
+
+all_word_chars = re.compile(r'\w+$')
+
+all_non_word_chars = re.compile(r'\W+$')
+
+ends_ss = re.compile(r'^[A-Za-z]+ss$')
 
 
 """
@@ -85,6 +109,8 @@ def iterate(f, x):
 """"
 PROCESSES
 
+Functions for the processing of streams, files and other sequences of data.
+
 """
 def feed_filter(feed, criterion=None, *comparison):
     for element in feed:
@@ -113,7 +139,7 @@ def data_filter(data, criterion=None, *comparison):
 FACTORIES
 
 Higher-order functions for the creation of other functions, 
-generators and larger program flow sequences.
+generators and larger program-flow sequences.
 
 """
 def make_partial(func, *args, **kwargs):
