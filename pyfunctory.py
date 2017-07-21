@@ -69,10 +69,14 @@ def char_set_size(set_size, item):
     return len(set(item)) == set_size
 
 
-def no_repeats(item):
-    """ Return True if the item is all unique elements . """
-    return len(item) == len(set(item))
+def contains_no(chars, item):
+    """ Return True if item contains no instances of chars. """
+    return set(item).isdisjoint(set(chars))
 
+
+def is_subset(reference, item):
+    """ Return True if item is a subset of reference. """
+    return set(item).issubset(reference)
 
 
 """
