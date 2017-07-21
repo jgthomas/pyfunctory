@@ -7,13 +7,24 @@ import operator
 """
 ATOMS
 
-Small, self-contained functions providing boolean 
-tests and basic operations.
+Small, self-contained functions, providing boolean tests and basic operations.
 
 Many are provided by the operator module:
+    
+    Arithmetic
+    add : add
+    mul : multiply
+
+    Comparative
+    eq  : equal (==)
+    ge  : greater than or equal (>=)
+    gt  : greater than (>)
+    le  : less than or equal (<=)
+    lt  : less than (<)
+    ne  : not equal (!=)
+
 
 """
-
 def exact_match(x, y):
     """
     Return True if x is made of the same elements as y, including repeats.
@@ -21,7 +32,6 @@ def exact_match(x, y):
     Examples:
     >>> exact_match("stop", "pots")
     >>> True
-
     >>> exact_match("settee", "tsetse")
     >>> False
 
@@ -89,3 +99,68 @@ def compose(*funcs):
             result = f(result)
         return result
     return inner
+
+
+def map_over(func):
+    """
+    Return generator that applies func to all elements.
+
+    Works like map.
+
+    Example: generator to add 3 to every element
+    >>> from operator import add
+    >>> nums = [1, 2, 3, 4]
+    >>> add3 = use_operator(add, 3)
+    >>> add_three = map_over(add3)
+    >>> nums_plus_three = (add_three(nums))
+    >>> list(nums_plus_three)
+    [4, 5, 6, 7]
+
+    """
+    def generator(data):
+        return (func(x) for x in data)
+    return generator
+
+
+def filter_by(func):
+    """
+    Return generator that filters all elements by func.
+
+    Works like filter.
+
+    Example: return only odd numbers
+    >>> is_odd = lambda x: x % 2 != 0
+    >>> nums = [1, 2, 3, 4, 5]
+    >>> odd = filter_by(is_odd)
+    >>> odd_nums = (odd(nums))
+    >>> list(odd_nums)
+    [1, 3, 5]
+
+    """
+    def generator(data):
+        return (x for x in data if func(x))
+    return generator
+
+
+def map_over_filter_by(map_func, filter_func):
+    """
+    Return generator that maps a function only to those
+    elements filtered by some criteria, leaving the other
+    elements intact.
+
+    Example: add 100 to all the odd numbers
+    >>> from operator import add
+    >>> is_odd = lambda x: x % 2 != 0
+    >>> add100 = use_operator(add, 100)
+
+    >>> nums = [1, 2, 3, 4, 5]
+    
+    >>> add_100_to_odd = map_over_filter_by(add100, is_odd)
+    >>> odd_plus_100 = (add_100_to_odd(nums))
+    >>> list(odd_plus_100)
+    [101, 2, 103, 4, 105]
+
+    """
+    def generator(data):
+        return (map_func(x) if filter_func(x) else x for x in data)
+    return generator
