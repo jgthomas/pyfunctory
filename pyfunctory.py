@@ -261,12 +261,9 @@ def map_over_filter_by(map_func, filter_func):
     elements intact.
 
     Example: add 100 to all the odd numbers
-    >>> from operator import add
     >>> is_odd = lambda x: x % 2 != 0
-    >>> add100 = use_operator(add, 100)
-
+    >>> add100 = make_partial(operator.add, 100)
     >>> nums = [1, 2, 3, 4, 5]
-    
     >>> add_100_to_odd = map_over_filter_by(add100, is_odd)
     >>> odd_plus_100 = (add_100_to_odd(nums))
     >>> list(odd_plus_100)
