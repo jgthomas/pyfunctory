@@ -10,25 +10,8 @@ ATOMS
 
 Small, self-contained functions, providing boolean tests and basic operations.
 
-Many are provided by the operator module:
+Many are provided by the operator module.
     
-    Arithmetic
-    add : add
-    mul : multiply
-
-    Comparative
-    eq  : equal (==)
-    ge  : greater than or equal (>=)
-    gt  : greater than (>)
-    le  : less than or equal (<=)
-    lt  : less than (<)
-    ne  : not equal (!=)
-
-    Membership
-    contains  :  in (x in y)
-    is        :  is (x is y)
-    is_not    :  (x is not y)
-
 In all cases, the comparison is added first to fascilitate partial application.
 
 """
