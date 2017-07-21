@@ -29,6 +29,56 @@ Many are provided by the operator module:
     is        :  is (x is y)
     is_not    :  (x is not y)
 
+In all cases, the comparison is added first to fascilitate partial application.
+
+"""
+def does_not_contain(y, x):
+    """ Return True if x is NOT found in y. """
+    return not operator.contains(y, x)
+
+
+def is_length(length, item):
+    """ Return True if item is the specified length. """
+    return len(item) == length
+
+
+def longer_than(length, item):
+    """ Return True if item is longer than specified length. """
+    return len(item) > length
+
+
+def shorter_than(length, item):
+    """ Return True if item is shorter than specified length. """
+    return len(item) < length
+
+
+def starts_with(chars, string):
+    """ Return True if string starts with specified characters. """
+    chars = tuple(c.lower() for c in chars)
+    return string.startswith(chars)
+
+
+def ends_with(chars, string):
+    """ Return True if string ends with specified characters. """
+    chars = tuple(c.lower() for c in chars)
+    return string.endswith(chars)
+
+
+def char_set_size(set_size, item):
+    """ Return True if item contains set_size unique elements. """
+    return len(set(item)) == set_size
+
+
+def no_repeats(item):
+    """ Return True if the item is all unique elements . """
+    return len(item) == len(set(item))
+
+
+
+"""
+COMPARISONS
+
+Longer, more complex comparison functions.
 
 """
 def exact_match(x, y):
@@ -45,15 +95,10 @@ def exact_match(x, y):
     return all(x_elem == y_elem for x_elem, y_elem in zip(sorted(x), sorted(y)))
 
 
-def does_not_contain(y, x):
-    """ Return True if x is NOT found in y. """
-    return not operator.contains(y, x)
-
-
 """
 NUGGETS
 
-Regex patterns for filtering purposes
+Regex patterns for filtering purposes.
 
 """
 initial_lowercase = re.compile(r'^[a-z]')
