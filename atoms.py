@@ -11,9 +11,13 @@ comparison is added first to fascilitate partial application.
 import operator
 
 
+def contains(y, x):
+    """ Return True if x is found in y. """
+    return y in x
+
 def does_not_contain(y, x):
     """ Return True if x is NOT found in y. """
-    return not operator.contains(y, x)
+    return y not in x
 
 
 def is_length(length, item):
