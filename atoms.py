@@ -8,8 +8,6 @@ comparison is added first to fascilitate partial application.
 
 """
 
-import operator
-
 
 def contains(y, x):
     """ Return True if x is found in y. """
