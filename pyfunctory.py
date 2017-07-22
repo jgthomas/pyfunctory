@@ -183,11 +183,28 @@ def make_partial(func, *args, **kwargs):
     >>> add2(10)
     >>> 12
 
+    >>> contains_e = make_partial(operator.contains, "e")
+    >>> contains_e("help")
+    >>> True
+    >>> contains_e("batman")
+    >>> False
+
     """
     return functools.partial(func, *args, **kwargs)
 
 
 def compose(*funcs):
+    """
+    Return a function that applies all the supplied functions to the data.
+
+    Example:
+    >>> add2 = make_partial(operator.add, 2)
+    >>> mult3 = make_partial(operator.mul, 3)
+    >>> add2_then_mul3 = compose(add2, mul3)
+    >>> add2_then_mul3(6)
+    >>> 24
+
+    """
     def inner(data, funcs=funcs):
         result = data
         for f in funcs:
