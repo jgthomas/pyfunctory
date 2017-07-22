@@ -62,11 +62,46 @@ def exact_match(x, y):
     """
     Return True if x is made of the same elements as y, including repeats.
 
+    Only for two items of the same length.
+
     Examples:
     >>> exact_match("stop", "pots")
     >>> True
+    >>> exact_match("poster", "post")
+    >>> False
     >>> exact_match("settee", "tsetse")
+    >>> False
+    >>> exact_match("bastion", "bass")
     >>> False
 
     """
     return all(x_elem == y_elem for x_elem, y_elem in zip(sorted(x), sorted(y)))
+
+
+def can_be_made(reference, item):
+    """
+    Return True if item can be made from reference, including repeats.
+
+    Works for items of any length, as long as all
+    elements are present in reference.
+
+    Examples:
+    >>> can_be_made("stop", "opts")
+    >>> True
+    >>> can_be_made("poster", "post")
+    >>> True
+    >>> can_be_made("settee", "tsetse")
+    >>> False
+    >>> can_be_made("bastion", "bass")
+    >>> False
+
+    """
+    reference = reference.copy()
+    count = len(item)
+    for character in item:
+        if character in reference:
+            reference.remove(character)
+            count -= 1
+    if count == 0:
+        return True
+    return False
