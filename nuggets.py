@@ -1,14 +1,14 @@
-
-
-import re
-
-
 """
 NUGGETS
 
 Regex patterns for filtering purposes.
 
 """
+
+
+import re
+
+
 initial_lowercase = re.compile(r'^[a-z]')
 
 initial_capital = re.compile(r'^[A-Z]')

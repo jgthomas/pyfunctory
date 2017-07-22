@@ -1,15 +1,16 @@
-
-
-import operator
-
-
 """
+ATOMS
+
 Small, self-contained functions, providing boolean tests and basic operations. 
 
 These expand on the options found in the operator module. In all cases, the 
 comparison is added first to fascilitate partial application.
 
 """
+
+import operator
+
+
 def does_not_contain(y, x):
     """ Return True if x is NOT found in y. """
     return not operator.contains(y, x)

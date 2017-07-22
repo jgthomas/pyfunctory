@@ -1,7 +1,11 @@
 """"
+PROCESS
+
 Functions for the processing of streams, files and other sequences of data.
 
 """
+
+
 def feed_filter(feed, criterion=None, *comparison):
     for element in feed:
         element = element.strip()

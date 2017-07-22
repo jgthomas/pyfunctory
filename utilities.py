@@ -1,12 +1,14 @@
+"""
+UTILITIES
+
+Small, functional-style utilites.
+
+"""
 
 
 import functools
 
 
-"""
-Small, functional-style utilites.
-
-"""
 def take(n, iterator):
     """ Return the first n elements. """
     return itertools.islice(iterator, n)

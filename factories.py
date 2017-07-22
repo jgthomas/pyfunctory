@@ -1,13 +1,15 @@
+"""
+FACTORIES
+
+Higher-order functions for the creation of other functions, 
+generators and larger program-flow sequences.
+
+"""
 
 
 import functools
 
 
-"""
-Higher-order functions for the creation of other functions, 
-generators and larger program-flow sequences.
-
-"""
 def make_partial(func, *args, **kwargs):
     """
     Return partially applied function for use in pipelines.
