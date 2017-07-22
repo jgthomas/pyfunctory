@@ -7,6 +7,7 @@ Small, functional-style utilites.
 
 
 import functools
+import itertools
 
 
 def take(n, iterator):
