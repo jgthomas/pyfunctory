@@ -25,7 +25,7 @@ ends_ss = re.compile(r'^[A-Za-z]+ss$')
 
 
 def match_factory(*nuggets, match=True):
-    """ Return function to test item against all specified regex patterns. """
+    """ Return function to test item against regex patterns. """
     def regex_match(item):
         """
         Return True if item matches all nuggets.
