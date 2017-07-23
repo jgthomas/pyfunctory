@@ -15,15 +15,15 @@ def take(n, iterator):
     return itertools.islice(iterator, n)
 
 
-def drop(n, it):
+def drop(n, iterator):
     """ Return all but the first n elements """
-    return itertools.islice(it, n, None)
+    return itertools.islice(iterator, n, None)
 
 
-def tail(it):
+def tail(iterator):
     """ Return all but the first element. """
     t = functools.partial(drop, 1)
-    return t(it)
+    return t(iterator)
 
 
 def iterate(f, x):
