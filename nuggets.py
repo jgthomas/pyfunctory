@@ -30,7 +30,7 @@ def match_factory(*nuggets, match=True):
         """
         Return True if item matches all nuggets.
 
-        i.e. one failed match will result in it returning False.
+        i.e. will return False after one failed match.
 
         Example:
         >>> match = match_factory(ini_cap, all_word_chars)
@@ -53,7 +53,7 @@ def match_factory(*nuggets, match=True):
         """
         Return True if item does NOT match all nuggets.
 
-        i.e. one successful match will result in it returning False
+        i.e. will return False after one successful match.
 
         Example:
         >>> not_match = match_factory(ini_cap, all_word_chars, match=False)
