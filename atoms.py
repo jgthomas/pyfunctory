@@ -1,7 +1,7 @@
 """
 ATOMS
 
-Small, self-contained functions, providing boolean tests and basic operations. 
+Small, self-contained functions, providing boolean tests of criteria.
 
 These expand on the options found in the operator module. In all cases, the 
 comparison is added first to fascilitate partial application.
@@ -53,6 +53,11 @@ def char_set_size(set_size, item):
 def contains_no(chars, item):
     """ Return True if item contains no instances of chars. """
     return set(item).isdisjoint(set(chars))
+
+
+def no_repeats(item):
+    """ Return True if there are no repeated elements. """
+    return len(item) == len(set(item))
 
 
 def is_subset(reference, item):
