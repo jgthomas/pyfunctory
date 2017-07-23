@@ -3,8 +3,7 @@ ATOMS
 
 Small, self-contained functions, providing boolean tests of criteria.
 
-These expand on the options found in the operator module. In all cases, the 
-comparison is added first to fascilitate partial application.
+In all cases, the comparison is added first to fascilitate partial application.
 
 """
 
@@ -35,14 +34,20 @@ def shorter_than(length, item):
 
 def starts_with(chars, string):
     """ Return True if string starts with specified characters. """
-    chars = tuple(c.lower() for c in chars)
+    chars = tuple(c.lower() for c in str(chars) if c.isalnum())
     return string.startswith(chars)
 
 
 def ends_with(chars, string):
     """ Return True if string ends with specified characters. """
-    chars = tuple(c.lower() for c in chars)
+    chars = tuple(c.lower() for c in str(chars) if c.isalnum())
     return string.endswith(chars)
+
+
+def is_palindrome(sequence):
+    """ Return True if sequence is pallindromic. """
+    clean_sequence = [c.lower() for c in str(sequence) if c.isalnum()]
+    return clean_sequence == list(reversed(clean_sequence))
 
 
 def char_set_size(set_size, item):
