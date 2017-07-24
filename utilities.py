@@ -30,10 +30,12 @@ def iterate(f, x):
     """
     Applies f to x, then f(f(x)), then f(f(f(x))), etc.
 
-    Example: apply double three times to an x of 2
     >>> double = lambda x: x + x
-    >>> take(4, iterate(double, 2))
+
+    >>> list(take(4, iterate(double, 2)))
     [2, 4, 8, 16]
+    >>> max(take(4, iterate(double, 2)))
+    16
 
     """
     return itertools.accumulate(itertools.repeat(x), lambda fx, _: f(fx))
@@ -46,10 +48,10 @@ def pipe(data, *funcs):
     Requires functions which take a single argument, or that have
     been made so through partial application.
 
-    Example:
     >>> double = lambda x: x * 2
+
     >>> pipe(6, double, str, double)
-    >>> "1212"
+    '1212'
 
     """
     for func in funcs:

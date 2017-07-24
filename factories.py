@@ -14,16 +14,17 @@ def make_partial(func, *args, **kwargs):
     """
     Return partially applied function for use in pipelines.
 
-    Example:
+    >>> import operator
+    >>> from atoms import contains
     >>> add2 = make_partial(operator.add, 2)
-    >>> add2(10)
-    >>> 12
+    >>> contains_e = make_partial(contains, "e")
 
-    >>> contains_e = make_partial(operator.contains, "e")
+    >>> add2(10)
+    12
     >>> contains_e("help")
-    >>> True
+    True
     >>> contains_e("batman")
-    >>> False
+    False
 
     """
     return functools.partial(func, *args, **kwargs)
@@ -33,12 +34,13 @@ def compose(*funcs):
     """
     Return a function that applies all the supplied functions to the data.
 
-    Example:
+    >>> import operator
     >>> add2 = make_partial(operator.add, 2)
     >>> mult3 = make_partial(operator.mul, 3)
-    >>> add2_then_mul3 = compose(add2, mul3)
+
+    >>> add2_then_mul3 = compose(add2, mult3)
     >>> add2_then_mul3(6)
-    >>> 24
+    24
 
     """
     def inner(data, funcs=funcs):
@@ -55,13 +57,12 @@ def map_over(func):
 
     Works like map.
 
-    Example: generator to add 3 to every element
-    >>> from operator import add
     >>> nums = [1, 2, 3, 4]
-    >>> add3 = use_operator(add, 3)
+    >>> from operator import add
+    >>> add3 = make_partial(add, 3)
+
     >>> add_three = map_over(add3)
-    >>> nums_plus_three = (add_three(nums))
-    >>> list(nums_plus_three)
+    >>> list(add_three(nums))
     [4, 5, 6, 7]
 
     """
@@ -76,12 +77,11 @@ def filter_by(func):
 
     Works like filter.
 
-    Example: return only odd numbers
-    >>> is_odd = lambda x: x % 2 != 0
     >>> nums = [1, 2, 3, 4, 5]
+    >>> is_odd = lambda x: x % 2 != 0
+
     >>> odd = filter_by(is_odd)
-    >>> odd_nums = (odd(nums))
-    >>> list(odd_nums)
+    >>> list(odd(nums))
     [1, 3, 5]
 
     """
@@ -96,13 +96,13 @@ def map_over_filter_by(map_func, filter_func):
     elements filtered by some criteria, leaving the other
     elements intact.
 
-    Example: add 100 to all the odd numbers
+    >>> nums = [1, 2, 3, 4, 5]
+    >>> import operator
     >>> is_odd = lambda x: x % 2 != 0
     >>> add100 = make_partial(operator.add, 100)
-    >>> nums = [1, 2, 3, 4, 5]
+
     >>> add_100_to_odd = map_over_filter_by(add100, is_odd)
-    >>> odd_plus_100 = (add_100_to_odd(nums))
-    >>> list(odd_plus_100)
+    >>> list(add_100_to_odd(nums))
     [101, 2, 103, 4, 105]
 
     """

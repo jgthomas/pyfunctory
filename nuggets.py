@@ -32,16 +32,16 @@ def match_factory(*nuggets, match=True):
 
         i.e. will return False after one failed match.
 
-        Example:
         >>> match = match_factory(ini_cap, all_word_chars)
+
         >>> match("Dog")
-        >>> True
+        True
         >>> match("Dog1")
-        >>> False
+        False
         >>> match("dog")
-        >>> False
+        False
         >>> match("dog1")
-        >>> False
+        False
         """
         for nugget in nuggets:
             if nugget.match(item):
@@ -55,16 +55,16 @@ def match_factory(*nuggets, match=True):
 
         i.e. will return False after one successful match.
 
-        Example:
         >>> not_match = match_factory(ini_cap, all_word_chars, match=False)
+
         >>> not_match("Dog")
-        >>> False
+        False
         >>> not_match("Dog1")
-        >>> False
+        False
         >>> not_match("dog")
-        >>> False
+        False
         >>> not_match("dog1")
-        >>> True
+        True
 
         """
         for nugget in nuggets:
@@ -73,6 +73,3 @@ def match_factory(*nuggets, match=True):
             else:
                 return False
         return True
-    if match:
-        return regex_match
-    return regex_not_match
