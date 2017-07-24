@@ -129,7 +129,7 @@ def filter_by(func):
     return generator
 
 
-def map_over_filter_by(map_func, filter_func, remove=False):
+def map_filtered(map_func, filter_func, remove=False):
     """
     Return generator that maps a function only to those
     elements filtered by some criteria.
@@ -142,11 +142,11 @@ def map_over_filter_by(map_func, filter_func, remove=False):
     >>> is_odd = lambda x: x % 2 != 0
     >>> add100 = make_partial(operator.add, 100)
 
-    >>> add_100_to_odd = map_over_filter_by(add100, is_odd)
+    >>> add_100_to_odd = map_filtered(add100, is_odd)
     >>> list(add_100_to_odd(nums))
     [101, 2, 103, 4, 105]
 
-    >>> add_100_to_odd = map_over_filter_by(add100, is_odd, remove=True)
+    >>> add_100_to_odd = map_filtered(add100, is_odd, remove=True)
     >>> list(add_100_to_odd(nums))
     [101, 103, 105]
 
