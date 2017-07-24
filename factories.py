@@ -36,9 +36,9 @@ def compose(*funcs):
 
     >>> import operator
     >>> add2 = make_partial(operator.add, 2)
-    >>> mult3 = make_partial(operator.mul, 3)
+    >>> mul3 = make_partial(operator.mul, 3)
 
-    >>> add2_then_mul3 = compose(add2, mult3)
+    >>> add2_then_mul3 = compose(add2, mul3)
     >>> add2_then_mul3(6)
     24
 
@@ -58,8 +58,8 @@ def map_over(func):
     Works like map.
 
     >>> nums = [1, 2, 3, 4]
-    >>> from operator import add
-    >>> add3 = make_partial(add, 3)
+    >>> import operator
+    >>> add3 = make_partial(operator.add, 3)
 
     >>> add_three = map_over(add3)
     >>> list(add_three(nums))
