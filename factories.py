@@ -16,11 +16,11 @@ def make_partial(func, *args, **kwargs):
 
     >>> import operator
     >>> from atoms import contains
-    >>> add2 = make_partial(operator.add, 2)
-    >>> contains_e = make_partial(contains, "e")
 
+    >>> add2 = make_partial(operator.add, 2)
     >>> add2(10)
     12
+    >>> contains_e = make_partial(contains, "e")
     >>> contains_e("help")
     True
     >>> contains_e("batman")
@@ -51,14 +51,54 @@ def compose(*funcs):
     return inner
 
 
+def multi_bool(*tests):
+    """
+    Return True if all tests pass.
+
+    Tests can be single-argument functions or compiled regex patterns.
+
+    >>> nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> is_odd = lambda x: x % 2 != 0
+    >>> over_3 = lambda x: x > 3
+
+    >>> test = multi_bool(is_odd, over_3)
+    >>> [n for n in nums if test(n)]
+    [5, 7, 9]
+
+    >>> import re
+    >>> words = ["awe", "hiss", "ass", "pass", "piss", "kiss"]
+    >>> start_p = lambda x: x[0] == "p"
+    >>> ends_ss = re.compile(r'^[A-Za-z]+ss$')
+
+    >>> test2 = multi_bool(start_p, ends_ss)
+    >>> [word for word in words if test2(word)]
+    ['pass', 'piss']
+
+    """
+    def tester(x):
+        for test in tests:
+            try:
+                if test(x):
+                    continue
+                else:
+                    return False
+            except TypeError:
+                if test.match(x):
+                    continue
+                else:
+                    return False
+        return True
+    return tester
+
+
 def map_over(func):
     """
     Return generator that applies func to all elements.
 
     Works like map.
 
-    >>> nums = [1, 2, 3, 4]
     >>> import operator
+    >>> nums = [1, 2, 3, 4]
     >>> add3 = make_partial(operator.add, 3)
 
     >>> add_three = map_over(add3)
@@ -96,8 +136,8 @@ def map_over_filter_by(map_func, filter_func):
     elements filtered by some criteria, leaving the other
     elements intact.
 
-    >>> nums = [1, 2, 3, 4, 5]
     >>> import operator
+    >>> nums = [1, 2, 3, 4, 5]
     >>> is_odd = lambda x: x % 2 != 0
     >>> add100 = make_partial(operator.add, 100)
 

@@ -73,3 +73,6 @@ def match_factory(*nuggets, match=True):
             else:
                 return False
         return True
+    if match:
+        return regex_match
+    return regex_not_match
