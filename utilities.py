@@ -37,3 +37,21 @@ def iterate(f, x):
 
     """
     return itertools.accumulate(itertools.repeat(x), lambda fx, _: f(fx))
+
+
+def pipe(data, *funcs):
+    """
+    Send data through a series of functions, returning final output.
+
+    Requires functions which take a single argument, or that have
+    been made so through partial application.
+
+    Example:
+    >>> double = lambda x: x * 2
+    >>> pipe(6, double, str, double)
+    >>> "1212"
+
+    """
+    for func in funcs:
+        data = func(data)
+    return data
