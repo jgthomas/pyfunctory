@@ -51,7 +51,7 @@ def compose(*funcs):
     return inner
 
 
-def multi_bool(*tests):
+def is_true(*tests):
     """
     Return True if all tests pass.
 
@@ -61,7 +61,7 @@ def multi_bool(*tests):
     >>> is_odd = lambda x: x % 2 != 0
     >>> over_3 = lambda x: x > 3
 
-    >>> test = multi_bool(is_odd, over_3)
+    >>> test = is_true(is_odd, over_3)
     >>> [n for n in nums if test(n)]
     [5, 7, 9]
 
@@ -70,7 +70,7 @@ def multi_bool(*tests):
     >>> start_p = lambda x: x[0] == "p"
     >>> ends_ss = re.compile(r'^[A-Za-z]+ss$')
 
-    >>> test2 = multi_bool(start_p, ends_ss)
+    >>> test2 = is_true(start_p, ends_ss)
     >>> [word for word in words if test2(word)]
     ['pass', 'piss']
 
@@ -80,13 +80,10 @@ def multi_bool(*tests):
             try:
                 if test(x):
                     continue
-                else:
-                    return False
             except TypeError:
                 if test.match(x):
                     continue
-                else:
-                    return False
+            return False
         return True
     return tester
 
