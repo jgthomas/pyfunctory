@@ -57,6 +57,8 @@ def is_true(*tests):
 
     Tests can be single-argument functions or compiled regex patterns.
 
+    Works like compose but for filters.
+
     >>> nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     >>> is_odd = lambda x: x % 2 != 0
     >>> over_3 = lambda x: x > 3
@@ -127,11 +129,13 @@ def filter_by(func):
     return generator
 
 
-def map_over_filter_by(map_func, filter_func):
+def map_over_filter_by(map_func, filter_func, remove=False):
     """
     Return generator that maps a function only to those
-    elements filtered by some criteria, leaving the other
-    elements intact.
+    elements filtered by some criteria.
+
+    If remove is set to True, elements that don't match the
+    filter are deleted, otherwise they pass through unchanged.
 
     >>> import operator
     >>> nums = [1, 2, 3, 4, 5]
@@ -142,7 +146,13 @@ def map_over_filter_by(map_func, filter_func):
     >>> list(add_100_to_odd(nums))
     [101, 2, 103, 4, 105]
 
+    >>> add_100_to_odd = map_over_filter_by(add100, is_odd, remove=True)
+    >>> list(add_100_to_odd(nums))
+    [101, 103, 105]
+
     """
     def generator(data):
+        if remove:
+            return (map_func(x) for x in data if filter_func(x))
         return (map_func(x) if filter_func(x) else x for x in data)
     return generator
