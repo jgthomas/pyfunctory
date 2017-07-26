@@ -90,6 +90,37 @@ def is_true(*tests):
     return tester
 
 
+#def all_match(*tests, match=True):
+#    def is_match(x):
+#        return all(p(x) for p in tests)
+#    def is_not_match(x):
+#        return not all(p(x) for p in tests)
+#    if match:
+#        return is_match
+#    return is_not_match
+#
+#
+#def any_match(*tests, match=True):
+#    def is_match(x):
+#        return any(p(x) for p in tests)
+#    def is_not_match(x):
+#        return not any(p(x) for p in tests)
+#    if match:
+#        return is_match
+#    return is_not_match
+
+def flip(func, a, b):
+    return func(b, a)
+
+def simple_juxt(x, *funcs):
+    return tuple(func(x) for func in funcs)
+
+def juxt(*funcs):
+    def tester(x):
+        return tuple(func(x) for func in funcs)
+    return tester
+
+
 def map_over(func):
     """
     Return generator that applies func to all elements.
