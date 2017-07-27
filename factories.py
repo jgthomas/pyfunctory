@@ -51,71 +51,43 @@ def compose(*funcs):
     return inner
 
 
-def is_true(*tests):
+def match_compose(*tests, func=all, match=True):
     """
-    Return True if all tests pass.
+    Return function to run series of tests on an input.
 
-    Tests can be single-argument functions or compiled regex patterns.
-
-    Works like compose but for filters.
+    tests  :  series of single-argument Boolean functions
+    func   :  overall evaluation to apply: all, any
+    match  :  whether tests should pass if True or False
 
     >>> nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     >>> is_odd = lambda x: x % 2 != 0
     >>> over_3 = lambda x: x > 3
 
-    >>> test = is_true(is_odd, over_3)
-    >>> [n for n in nums if test(n)]
+    >>> test1 = match_compose(is_odd, over_3)
+    >>> [n for n in nums if test1(n)]
     [5, 7, 9]
 
-    >>> import re
-    >>> words = ["awe", "hiss", "ass", "pass", "piss", "kiss"]
-    >>> start_p = lambda x: x[0] == "p"
-    >>> ends_ss = re.compile(r'^[A-Za-z]+ss$')
+    >>> test2 = match_compose(is_odd, over_3, func=any)
+    >>> [n for n in nums if test2(n)]
+    [1, 3, 4, 5, 6, 7, 8, 9]
 
-    >>> test2 = is_true(start_p, ends_ss)
-    >>> [word for word in words if test2(word)]
-    ['pass', 'piss']
+    >>> test3 = match_compose(is_odd, over_3, match=False)
+    >>> [n for n in nums if test3(n)]
+    [1, 2, 3, 4, 6, 8]
+
+    >>> test4 = match_compose(is_odd, over_3, func=any, match=False)
+    >>> [n for n in nums if test4(n)]
+    [2]
 
     """
-    def tester(x):
-        for test in tests:
-            try:
-                if test(x):
-                    continue
-            except TypeError:
-                if test.match(x):
-                    continue
-            return False
-        return True
-    return tester
+    def is_match(x):
+        return func(t(x) for t in tests)
+    def is_not_match(x):
+        return not func(t(x) for t in tests)
+    return is_match if match else is_not_match
 
 
-#def all_match(*tests, match=True):
-#    def is_match(x):
-#        return all(p(x) for p in tests)
-#    def is_not_match(x):
-#        return not all(p(x) for p in tests)
-#    if match:
-#        return is_match
-#    return is_not_match
-#
-#
-#def any_match(*tests, match=True):
-#    def is_match(x):
-#        return any(p(x) for p in tests)
-#    def is_not_match(x):
-#        return not any(p(x) for p in tests)
-#    if match:
-#        return is_match
-#    return is_not_match
-
-def flip(func, a, b):
-    return func(b, a)
-
-def simple_juxt(x, *funcs):
-    return tuple(func(x) for func in funcs)
-
-def juxt(*funcs):
+def juxt_compose(*funcs):
     def tester(x):
         return tuple(func(x) for func in funcs)
     return tester

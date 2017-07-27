@@ -57,3 +57,17 @@ def pipe(data, *funcs):
     for func in funcs:
         data = func(data)
     return data
+
+
+def juxt(x, *funcs):
+    """
+    Return tuple of each func applied to x.
+
+    >>> add2 = lambda x: x + 2
+    >>> mulby3 = lambda x: x * 3
+    >>> pow2 = lambda x: x ** 2
+    >>> juxt(10, add2, mulby3, pow2)
+    (12, 30, 100)
+
+    """
+    return tuple(func(x) for func in funcs)
