@@ -78,13 +78,13 @@ def exact_match(x, y):
 
     Examples:
     >>> exact_match("stop", "pots")
-    >>> True
+    True
     >>> exact_match("poster", "post")
-    >>> False
+    False
     >>> exact_match("settee", "tsetse")
-    >>> False
+    False
     >>> exact_match("bastion", "bass")
-    >>> False
+    False
 
     """
     return all(x_elem == y_elem for x_elem, y_elem in zip(sorted(x), sorted(y)))
@@ -99,16 +99,16 @@ def can_be_made(reference, item):
 
     Examples:
     >>> can_be_made("stop", "opts")
-    >>> True
+    True
     >>> can_be_made("poster", "post")
-    >>> True
+    True
     >>> can_be_made("settee", "tsetse")
-    >>> False
+    False
     >>> can_be_made("bastion", "bass")
-    >>> False
+    False
 
     """
-    reference = reference.copy()
+    reference = list(reference)
     count = len(item)
     for character in item:
         if character in reference:
