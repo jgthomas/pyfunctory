@@ -90,7 +90,7 @@ def match_compose(*tests, func=all, match=True):
 
 def juxt_compose(*funcs, reducer=None):
     """
-    Return tuple of results or a single-figure reduction.
+    Return tuple of each func result, or a single-figure reduction.
 
     Works for both individual items and sequences.
 
