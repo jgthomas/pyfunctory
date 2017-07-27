@@ -90,9 +90,10 @@ def match_compose(*tests, func=all, match=True):
 
 def juxt_compose(*funcs, reducer=None):
     """
-    Return tuple of each func result, or a single-figure reduction.
+    Return tuple of each func result, or a reduction.
 
-    Works for both individual items and sequences.
+    funcs    :  series of one-argument functions
+    reducer  :  reduce function (e.g. sum, max, min, etc.)
 
     >>> add2 = lambda x: x + 2
     >>> mul3 = lambda x: x * 3
@@ -132,8 +133,6 @@ def map_over(func):
     """
     Return generator that applies func to all elements.
 
-    Works like map.
-
     >>> import operator
     >>> nums = [1, 2, 3, 4]
     >>> add3 = make_partial(operator.add, 3)
@@ -151,8 +150,6 @@ def map_over(func):
 def filter_by(func):
     """
     Return generator that filters all elements by func.
-
-    Works like filter.
 
     >>> nums = [1, 2, 3, 4, 5]
     >>> is_odd = lambda x: x % 2 != 0

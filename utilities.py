@@ -31,7 +31,6 @@ def iterate(f, x):
     Applies f to x, then f(f(x)), then f(f(f(x))), etc.
 
     >>> double = lambda x: x + x
-
     >>> list(take(4, iterate(double, 2)))
     [2, 4, 8, 16]
     >>> max(take(4, iterate(double, 2)))
@@ -45,11 +44,9 @@ def pipe(data, *funcs):
     """
     Send data through a series of functions, returning final output.
 
-    Requires functions which take a single argument, or that have
-    been made so through partial application.
+    Requires functions which take a single argument.
 
     >>> double = lambda x: x * 2
-
     >>> pipe(6, double, str, double)
     '1212'
 
