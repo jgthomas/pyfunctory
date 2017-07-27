@@ -93,7 +93,7 @@ def juxt_compose(*funcs, reducer=None):
     Return tuple of each func result, or a reduction.
 
     funcs    :  series of one-argument functions
-    reducer  :  reduce function (e.g. sum, max, min, etc.)
+    reducer  :  optional reducing function
 
     >>> add2 = lambda x: x + 2
     >>> mul3 = lambda x: x * 3
