@@ -8,6 +8,7 @@ generators and larger program-flow sequences.
 
 
 import functools
+from utilities import juxt
 
 
 def make_partial(func, *args, **kwargs):
@@ -87,10 +88,44 @@ def match_compose(*tests, func=all, match=True):
     return is_match if match else is_not_match
 
 
-def juxt_compose(*funcs):
-    def tester(x):
-        return tuple(func(x) for func in funcs)
-    return tester
+def juxt_compose(*funcs, reducer=None):
+    """
+    Return tuple of results or a single-figure reduction.
+
+    Works for both individual items and sequences.
+
+    >>> add2 = lambda x: x + 2
+    >>> mul3 = lambda x: x * 3
+    >>> pow4 = lambda x: x ** 4
+
+    >>> test1 = juxt_compose(add2, mul3, pow4)
+    >>> test1(5)
+    (7, 15, 625)
+
+    >>> test2 = juxt_compose(add2, mul3, pow4, reducer=max)
+    >>> test2(5)
+    625
+
+    >>> nums = [3, 4, 5]
+
+    >>> test3 = juxt_compose(add2, mul3, pow4)
+    >>> [test3(x) for x in nums]
+    [(5, 9, 81), (6, 12, 256), (7, 15, 625)]
+
+    >>> test4 = juxt_compose(add2, mul3, pow4, reducer=min)
+    >>> [test4(x) for x in nums]
+    [5, 6, 7]
+
+    """
+    def identity(x):
+        return x
+
+    if reducer is None:
+        reducer = identity
+
+    def inner(x):
+        return reducer(juxt(x, *funcs))
+    return inner
 
 
 def map_over(func):
