@@ -76,10 +76,9 @@ def exact_match(x, y):
 
     Only for two items of the same length.
 
-    Examples:
     >>> exact_match("stop", "pots")
     True
-    >>> exact_match("poster", "post")
+    >>> exact_match("poster", "stop")
     False
     >>> exact_match("settee", "tsetse")
     False
@@ -97,10 +96,9 @@ def can_be_made(reference, item):
     Works for items of any length, as long as all
     elements are present in reference.
 
-    Examples:
     >>> can_be_made("stop", "opts")
     True
-    >>> can_be_made("poster", "post")
+    >>> can_be_made("poster", "stop")
     True
     >>> can_be_made("settee", "tsetse")
     False

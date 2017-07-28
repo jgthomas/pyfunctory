@@ -8,6 +8,7 @@ generators and larger program-flow sequences.
 
 
 import functools
+import itertools
 from utilities import juxt
 
 
@@ -90,7 +91,7 @@ def match_compose(*tests, func=all, match=True):
 
 def juxt_compose(*funcs, reducer=None):
     """
-    Return tuple of each func result, or a reduction.
+    Return tuple of each func result, or a reduction of those results.
 
     funcs    :  series of one-argument functions
     reducer  :  optional reducing function
@@ -164,6 +165,12 @@ def filter_by(func):
     return generator
 
 
+def reduce_to(reducer, func):
+    def generator(data):
+        return reducer(itertools.accumulate(data, func))
+    return generator
+
+
 def map_filtered(map_func, filter_func, remove=False):
     """
     Return generator that maps a function only to those
@@ -172,10 +179,9 @@ def map_filtered(map_func, filter_func, remove=False):
     If remove is set to True, elements that don't match the
     filter are deleted, otherwise they pass through unchanged.
 
-    >>> import operator
     >>> nums = [1, 2, 3, 4, 5]
     >>> is_odd = lambda x: x % 2 != 0
-    >>> add100 = make_partial(operator.add, 100)
+    >>> add100 = lambda x: x + 100
 
     >>> add_100_to_odd = map_filtered(add100, is_odd)
     >>> list(add_100_to_odd(nums))
