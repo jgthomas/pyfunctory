@@ -9,7 +9,7 @@ generators and larger program-flow sequences.
 
 import functools
 import itertools
-from utilities import juxt
+from pyfunctory.utilities import juxt
 
 
 def make_partial(func, *args, **kwargs):
