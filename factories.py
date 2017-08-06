@@ -1,9 +1,6 @@
 """
 FACTORIES
 
-Higher-order functions for the creation of other functions, 
-generators and larger program-flow sequences.
-
 """
 
 
