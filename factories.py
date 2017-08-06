@@ -6,6 +6,7 @@ FACTORIES
 
 import functools
 import itertools
+import operator
 from pyfunctory.utilities import juxt
 
 
@@ -162,7 +163,9 @@ def filter_by(func):
     return generator
 
 
-def reduce_to(reducer, func):
+def reduce_to(reducer, func=None):
+    if not func:
+        func = operator.add
     def generator(data):
         return reducer(itertools.accumulate(data, func))
     return generator
