@@ -12,6 +12,7 @@ def contains(y, x):
     """ Return True if x is found in y. """
     return y in x
 
+
 def does_not_contain(y, x):
     """ Return True if x is NOT found in y. """
     return y not in x
