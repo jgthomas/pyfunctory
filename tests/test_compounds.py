@@ -1,7 +1,7 @@
 
 
 import unittest
-from pyfunctory.filter_compounds import can_be_made
+from pyfunctory.compounds import can_be_made
 
 
 class CanBeMadeTrue(unittest.TestCase):
