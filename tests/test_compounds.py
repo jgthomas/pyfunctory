@@ -5,6 +5,7 @@ from pyfunctory.compounds import can_be_made
 
 
 class CanBeMadeTrue(unittest.TestCase):
+
     def test_same_length_string(self):
         self.assertIs(can_be_made("pots", "stop"), True)
       
@@ -60,16 +61,9 @@ class CanBeMadeTrue(unittest.TestCase):
         item = [a, b]
         self.assertIs(can_be_made(reference, item), True)
       
-    def test_exact_variables(self):
-        a = "dog"
-        b = "cat"
-        c = "man"
-        reference = [a, b, c]
-        item = [a, b]
-        self.assertIs(can_be_made(reference, item, exact_match=True), False)
-      
   
 class CanBeMadeFalse(unittest.TestCase):
+
     def test_same_length_string_fail(self):
         self.assertIs(can_be_made("pott", "stop"), False)
       
@@ -89,7 +83,7 @@ class CanBeMadeFalse(unittest.TestCase):
         reference = ["p", "o", "t", "s", "e", "r"]
         item = ["s", "t", "o", "p"]
         self.assertIs(can_be_made(reference, item, exact_match=True), False)
-      
+
     def test_test_longer_than_reference(self):
         reference = ["p", "o", "t", "s", "e", "r"]
         item = ["s", "t", "o", "p", "i", "m", "e", "r"]
@@ -99,17 +93,17 @@ class CanBeMadeFalse(unittest.TestCase):
         reference = ["p", "o", "t", "s", "e", "r"]
         item = ["s", "t", "o", "p", "i", "m", "e", "r"]
         self.assertIs(can_be_made(reference, item, exact_match=True), False)
-      
+
     def test_exact_mixed_element_types(self):
         reference = (1, 2, 3, 4, "a", "b", 1.2)
         item = (2, 3, 4, 1, "a", 1.2)
         self.assertIs(can_be_made(reference, item, exact_match=True), False)
-      
+
     def test_exact_word(self):
         reference = ["happy", "birthday", "to", "you"]
         item = ["happy", "birthday"]
         self.assertIs(can_be_made(reference, item, exact_match=True), False)
-      
+
     def test_variables_fail(self):
         a = "dog"
         b = "cat"
@@ -118,7 +112,15 @@ class CanBeMadeFalse(unittest.TestCase):
         reference = [a, b, c]
         item = [a, b, d]
         self.assertIs(can_be_made(reference, item), False)
-      
+
+    def test_exact_variables(self):
+        a = "dog"
+        b = "cat"
+        c = "man"
+        reference = [a, b, c]
+        item = [a, b]
+        self.assertIs(can_be_made(reference, item, exact_match=True), False)
+
 
 if __name__ == '__main__':
     unittest.main()
