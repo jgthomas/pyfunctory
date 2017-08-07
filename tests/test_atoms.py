@@ -1,7 +1,6 @@
 
 
 import unittest
-
 from pyfunctory.atoms import is_palindrome
 
 
