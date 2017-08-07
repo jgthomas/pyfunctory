@@ -16,9 +16,9 @@ def can_be_made(ref, item, exact_match=False):
         ref (iterable): basis for comparison
         item (iterable): item to be compared with reference
         exact_match (bool): if True, *every* element in each
-                            iterable must have a matching element
-                            in the other iterable, otherwise item
-                            need only match a subset of ref
+                    iterable must have a matching element in the
+                    other iterable, otherwise item need only match
+                    a subset of ref
 
     Returns:
         bool: True if can be made, otherwise False.
