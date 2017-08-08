@@ -41,13 +41,13 @@ def can_be_made(ref, item, exact_match=False):
         if len(item) != len(ref):
             return False
 
-    if not set(item).issubset(ref):
+    overlap = [e for e in ref if e not in set(ref).difference(item)]
+
+    if len(overlap) < len(item):
         return False
 
     def to_chars(x):
         return [str(e) for e in x]
-
-    overlap = [e for e in ref if e not in set(ref).difference(item)]
 
     if (sorted(to_chars(item)) == sorted(to_chars(overlap))
         or len(item) == len(set(overlap))):
