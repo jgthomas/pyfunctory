@@ -22,18 +22,18 @@ def can_be_made(ref, item, exact_match=False):
     Iterables can differ both in the 'types' (or set) of elements they
     contain and in the frequency of the 'tokens' of those types.
 
-    >>> a = (1, 2, 3, 4)
-    >>> b = (1, 2, 3, 5, 6)
-    >>> can_be_made(a, b)
+    >>> types_a = (1, 2, 3, 4)
+    >>> types_b = (1, 2, 3, 5, 6)
+    >>> can_be_made(types_a, types_b)
     False
-    >>> can_be_made(b, a)
+    >>> can_be_made(types_b, types_a)
     False
 
-    >>> a = ("a", "b", "c", "d")
-    >>> b = ("a", "a", "b", "c", "d")
-    >>> can_be_made(a, b)
+    >>> tokens_a = ("a", "b", "c", "d")
+    >>> tokens_b = ("a", "a", "b", "c", "d")
+    >>> can_be_made(tokens_a, tokens_b)
     False
-    >>> can_be_made(b, a)
+    >>> can_be_made(tokens_b, tokens_a)
     True
 
     """
