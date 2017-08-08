@@ -28,6 +28,9 @@ def can_be_made(ref, item, exact_match=False):
         if len(item) != len(ref):
             return False
 
+    if not set(item).issubset(ref):
+        return False
+
     def to_chars(x):
         return [str(e) for e in x]
 

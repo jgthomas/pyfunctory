@@ -15,8 +15,11 @@ class CanBeMadeTrue(unittest.TestCase):
     def test_different_length_string(self):
         self.assertIs(can_be_made("poster", "stop"), True)
 
-    def test_double_letter(self):
+    def test_double_letter_both(self):
         self.assertIs(can_be_made("posters", "stops"), True)
+
+    def test_double_letter_in_reference(self):
+        self.assertIs(can_be_made("bassoon", "bas"), True)
     
     def test_integers_same_length(self):
         reference = (1, 2, 3, 4)
@@ -78,6 +81,9 @@ class CanBeMadeFalse(unittest.TestCase):
       
     def test_exact_same_letters_different_amounts(self):
         self.assertIs(can_be_made("settee", "tsetse", exact_match=True), False)
+
+    def test_double_letter_in_item(self):
+        self.assertIs(can_be_made("basoon", "bass"), False)
       
     def test_exact_different_length_list(self):
         reference = ["p", "o", "t", "s", "e", "r"]
