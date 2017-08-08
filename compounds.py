@@ -1,8 +1,6 @@
 """
 COMPOUNDS
 
-More complex comparison functions.
-
 """
 
 
@@ -10,11 +8,9 @@ def can_be_made(ref, item, exact_match=False):
     """
     Test if one iterable can be made from elements in another.
 
-    Considers both element type, and token frequency.
-
     Args:
         ref (iterable): basis for comparison
-        item (iterable): item to be compared with reference
+        item (iterable): item to be compared with ref
         exact_match (bool): if True, *every* element in each
                     iterable must have a matching element in the
                     other iterable, otherwise item need only match
@@ -22,6 +18,23 @@ def can_be_made(ref, item, exact_match=False):
 
     Returns:
         bool: True if can be made, otherwise False.
+
+    Iterables can differ both in the 'types' (or set) of elements they
+    contain and in the frequency of the 'tokens' of those types.
+
+    >>> a = (1, 2, 3, 4)
+    >>> b = (1, 2, 3, 5, 6)
+    >>> can_be_made(a, b)
+    False
+    >>> can_be_made(b, a)
+    False
+
+    >>> a = ("a", "b", "c", "d")
+    >>> b = ("a", "a", "b", "c", "d")
+    >>> can_be_made(a, b)
+    False
+    >>> can_be_made(b, a)
+    True
 
     """
     if exact_match:
