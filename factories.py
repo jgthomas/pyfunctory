@@ -62,22 +62,9 @@ def match_compose(*tests, func=all, match=True):
     >>> nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     >>> is_odd = lambda x: x % 2 != 0
     >>> over_3 = lambda x: x > 3
-
     >>> test1 = match_compose(is_odd, over_3)
     >>> [n for n in nums if test1(n)]
     [5, 7, 9]
-
-    >>> test2 = match_compose(is_odd, over_3, func=any)
-    >>> [n for n in nums if test2(n)]
-    [1, 3, 4, 5, 6, 7, 8, 9]
-
-    >>> test3 = match_compose(is_odd, over_3, match=False)
-    >>> [n for n in nums if test3(n)]
-    [1, 2, 3, 4, 6, 8]
-
-    >>> test4 = match_compose(is_odd, over_3, func=any, match=False)
-    >>> [n for n in nums if test4(n)]
-    [2]
 
     """
     def is_match(x):
