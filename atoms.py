@@ -46,7 +46,7 @@ def ends_with(chars, string):
 
 
 def is_palindrome(sequence):
-    """ Return True if sequence is pallindromic. """
+    """ Return True if sequence is palindromic. """
     clean_sequence = [c.lower() for c in str(sequence) if c.isalnum()]
     return clean_sequence == reversed(clean_sequence)
 
