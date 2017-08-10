@@ -5,44 +5,45 @@ from pyfunctory.factories import match_compose, juxt_compose
 
 
 class MatchComposeTest(unittest.TestCase):
+    def setUp(self):
+        self.nums = [1, 2, 101, 4, 102, 6]
+        self.is_even = lambda x: x % 2 == 0
+        self.small = lambda x: x < 100
+
     def test_all_match_compose(self):
-        nums = [1, 2, 101, 4, 102, 6]
-        is_even = lambda x: x % 2 == 0
-        small = lambda x: x < 100
-        comp_func = match_compose(is_even, small)
-        self.assertListEqual([x for x in nums if comp_func(x)], [2, 4, 6])
+        comp_func = match_compose(self.is_even, self.small)
+        self.assertListEqual([x for x in self.nums if comp_func(x)], [2, 4, 6])
 
     def test_any_match_compose(self):
-        nums = [1, 2, 101, 4, 102, 6]
-        is_even = lambda x: x % 2 == 0
-        small = lambda x: x < 100
-        comp_func = match_compose(is_even, small, func=any)
-        self.assertListEqual([x for x in nums if comp_func(x)], [1, 2, 4, 102, 6])
+        comp_func = match_compose(self.is_even, self.small, func=any)
+        self.assertListEqual([x for x in self.nums if comp_func(x)], [1, 2, 4, 102, 6])
 
     def test_all_false_match_compose(self):
-        nums = [1, 2, 101, 4, 102, 6]
-        is_even = lambda x: x % 2 == 0
-        small = lambda x: x < 100
-        comp_func = match_compose(is_even, small, match=False)
-        self.assertListEqual([x for x in nums if comp_func(x)], [1, 101, 102])
+        comp_func = match_compose(self.is_even, self.small, match=False)
+        self.assertListEqual([x for x in self.nums if comp_func(x)], [1, 101, 102])
 
     def test_any_false_match_compose(self):
-        nums = [1, 2, 101, 4, 102, 6]
-        is_even = lambda x: x % 2 == 0
-        small = lambda x: x < 100
-        comp_func = match_compose(is_even, small, func=any, match=False)
-        self.assertListEqual([x for x in nums if comp_func(x)], [101])
+        comp_func = match_compose(self.is_even, self.small, func=any, match=False)
+        self.assertListEqual([x for x in self.nums if comp_func(x)], [101])
 
 
-class MatchComposeTest(unittest.TestCase):
+class JuxtComposeTest(unittest.TestCase):
+    def setUp(self):
+        def bulk_rate(price):
+            return price - (price * 0.1)
+        def fixed_lump(price):
+            return price - 10.0
+        def new_special(price):
+            price = price - (price * 0.05)
+            return price - 5
+        self.bulk_rate = bulk_rate
+        self.fixed_lump = fixed_lump
+        self.new_special = new_special
+
     def test_basic_juxtapose(self):
-        add2 = lambda x: x + 2
-        mul3 = lambda x: x * 3
-        pow4 = lambda x: x ** 4
-        analysis = juxt_compose(add2, mul3, pow4)
-        self.assertEqual(analysis(4), (6, 12, 256))
-
-
+        toilet_paper = 20
+        bargain_analysis = juxt_compose(self.bulk_rate, self.fixed_lump, self.new_special)
+        self.assertEqual(bargain_analysis(toilet_paper), (18.0, 10.0, 14.0))
 
 
 if __name__ == '__main__':
