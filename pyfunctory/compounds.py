@@ -35,6 +35,8 @@ def can_be_made(ref, item, exact_match=False):
     False
     >>> can_be_made(tokens_b, tokens_a)
     True
+    >>> can_be_made(tokens_b, tokens_a, exact_match=True)
+    False
 
     """
     if exact_match:
