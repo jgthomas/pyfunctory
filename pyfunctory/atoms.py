@@ -3,7 +3,7 @@ ATOMS
 
 Small, self-contained functions, providing boolean tests of criteria.
 
-The comparison is added first to fascilitate partial application.
+In all cases the comparison is added first to fascilitate partial application.
 
 """
 
