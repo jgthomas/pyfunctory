@@ -6,6 +6,7 @@ before-install:
 install:
         - poetry install
 script:
+        - python -m doctest pyfunctory/*.py
         - poetry run pytest
         - poetry run flake8 pyfunctory/
         - poetry run black --check pyfunctory/
