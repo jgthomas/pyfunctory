@@ -43,11 +43,13 @@ def compose(*funcs):
     24
 
     """
+
     def inner(data, funcs=funcs):
         result = data
         for f in funcs:
             result = f(result)
         return result
+
     return inner
 
 
@@ -67,10 +69,13 @@ def match_compose(*tests, func=all, match=True):
     [5, 7, 9]
 
     """
+
     def is_match(x):
         return func(t(x) for t in tests)
+
     def is_not_match(x):
         return not func(t(x) for t in tests)
+
     return is_match if match else is_not_match
 
 
@@ -104,6 +109,7 @@ def juxt_compose(*funcs, reducer=None):
     [5, 6, 7]
 
     """
+
     def identity(x):
         return x
 
@@ -112,6 +118,7 @@ def juxt_compose(*funcs, reducer=None):
 
     def inner(x):
         return reducer(juxt(x, *funcs))
+
     return inner
 
 
@@ -128,8 +135,10 @@ def map_over(func):
     [4, 5, 6, 7]
 
     """
+
     def generator(data):
         return (func(x) for x in data)
+
     return generator
 
 
@@ -145,16 +154,20 @@ def filter_by(func):
     [1, 3, 5]
 
     """
+
     def generator(data):
         return (x for x in data if func(x))
+
     return generator
 
 
 def reduce_to(reducer, func=None):
     if not func:
         func = operator.add
+
     def generator(data):
         return reducer(itertools.accumulate(data, func))
+
     return generator
 
 
@@ -179,8 +192,10 @@ def map_filtered(map_func, filter_func, remove=False):
     [101, 103, 105]
 
     """
+
     def generator(data):
         if remove:
             return (map_func(x) for x in data if filter_func(x))
         return (map_func(x) if filter_func(x) else x for x in data)
+
     return generator

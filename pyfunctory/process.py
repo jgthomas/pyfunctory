@@ -33,11 +33,9 @@ def feed_filter(feed, criterion=None, *comparison):
 def load_data(data_file, criterion=None, *comparison):
     """ Run feed_filter over a file. """
     with open(data_file) as filename:
-        return [line for line
-                in feed_filter(filename, criterion, *comparison)]
+        return [line for line in feed_filter(filename, criterion, *comparison)]
 
 
 def filter_data(data, criterion=None, *comparison):
     """ Run feed_filter over sequence data type. """
-    return [element for element
-            in feed_filter(data, criterion, *comparison)]
+    return [element for element in feed_filter(data, criterion, *comparison)]

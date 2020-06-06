@@ -9,23 +9,24 @@ Regex patterns for filtering purposes.
 import re
 
 
-ini_lower = re.compile(r'^[a-z]')
+ini_lower = re.compile(r"^[a-z]")
 
-ini_upper = re.compile(r'^[A-Z]')
+ini_upper = re.compile(r"^[A-Z]")
 
-all_lower = re.compile(r'^[a-z]+$')
+all_lower = re.compile(r"^[a-z]+$")
 
-all_upper = re.compile(r'^[A-Z]+$')
+all_upper = re.compile(r"^[A-Z]+$")
 
-all_word_chars = re.compile(r'\w+$')
+all_word_chars = re.compile(r"\w+$")
 
-all_non_word_chars = re.compile(r'\W+$')
+all_non_word_chars = re.compile(r"\W+$")
 
-ends_ss = re.compile(r'^[A-Za-z]+ss$')
+ends_ss = re.compile(r"^[A-Za-z]+ss$")
 
 
 def match_factory(*nuggets, match=True):
     """ Return function to test item against regex patterns. """
+
     def regex_match(item):
         """
         Return True if item matches all nuggets.
@@ -49,6 +50,7 @@ def match_factory(*nuggets, match=True):
             else:
                 return False
         return True
+
     def regex_not_match(item):
         """
         Return True if item does NOT match all nuggets.
@@ -73,6 +75,7 @@ def match_factory(*nuggets, match=True):
             else:
                 return False
         return True
+
     if match:
         return regex_match
     return regex_not_match

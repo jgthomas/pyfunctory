@@ -54,7 +54,8 @@ def can_be_made(ref, item, exact_match=False):
 
     item_freqs = (item.count(e) for e in overlap_types)
     overlap_freqs = (overlap_tokens.count(e) for e in overlap_types)
-    elements_match = (True if overlap_freq - item_freq >= 0 else False
-                      for overlap_freq, item_freq
-                      in zip(overlap_freqs, item_freqs))
+    elements_match = (
+        True if overlap_freq - item_freq >= 0 else False
+        for overlap_freq, item_freq in zip(overlap_freqs, item_freqs)
+    )
     return all(elements_match)
