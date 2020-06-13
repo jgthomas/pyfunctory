@@ -4,6 +4,10 @@ COMPOUNDS
 """
 
 
+def exact_match(ref, item):
+    return can_be_made(ref, item, exact_match=True)
+
+
 def can_be_made(ref, item, exact_match=False):
     """
     Test if one iterable can be made from elements in another.
